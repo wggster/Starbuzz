@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The map is covering the ToolBar.  Read here a little bit on how to fix this, although
+this solution includes a Drawer, so the solution may be more complex than needed.
+http://stackoverflow.com/questions/27624882/fragment-overlaps-my-appcompat-toolbar
+http://stackoverflow.com/questions/28967301/toolbar-not-showing-up-in-fragment-with-google-maps
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="edu.ucsd.wgg.starbuzz.NearbyStoresMapActivity">
+
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.ucsd.wgg.starbuzz.NearbyStoresMapActivity" />
+
+</LinearLayout>
