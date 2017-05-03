@@ -155,7 +155,7 @@ public class TopLevelActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean ready) {
             // TODO - perhaps getMiles is slow enough that it should be run in the background
             if (coffeeNearService.hasLocation()) // in case we don't have a location provider!
-                closestView.setText(String.format("The nearest store is %1$.1f miles from you!",coffeeNearService.getMiles(coffeeNearService.getLastLocation())));
+                closestView.setText(String.format("The nearest store is %1$.1f miles from you!",coffeeNearService.getMiles()));
         }
     }
 }

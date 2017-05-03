@@ -61,6 +61,6 @@ public class CoffeeNearServiceTest {
 */
     @Test
     public void testGetMiles() throws TimeoutException {
-        assertTrue("CoffeeService.getMiles() returned a value less than 0", service.getMiles(service.getLastLocation()) >= 0);
+        assertTrue("CoffeeService.getMiles() returned a value less than 0", service.getMiles() >= 0);
     }
 }

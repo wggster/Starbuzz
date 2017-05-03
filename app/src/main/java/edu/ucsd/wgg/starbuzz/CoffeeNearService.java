@@ -116,8 +116,8 @@ public class CoffeeNearService extends Service {
     }
 
     // PRE: hasLocation()
-    public double getMiles(Location location) {
-        return starbuzzLocations.getMiles(location);
+    public double getMiles() {
+        return starbuzzLocations.getMiles(getLastLocation());
     }
 
     /*
