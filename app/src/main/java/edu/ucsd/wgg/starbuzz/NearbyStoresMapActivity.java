@@ -126,7 +126,7 @@ public class NearbyStoresMapActivity extends FragmentActivity implements OnMapRe
                     new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude())));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 */
-            final LatLng starBuzzLL = new LatLng(CoffeeNearService.STARBUZZ_LATITUDE, CoffeeNearService.STARBUZZ_LONGITUDE);
+            final LatLng starBuzzLL = new LatLng(StarbuzzLocations.STARBUZZ_LATITUDE, StarbuzzLocations.STARBUZZ_LONGITUDE);
             Marker starBuzzMarker = mMap.addMarker(new MarkerOptions()
                     .position(starBuzzLL)
                     .title("StarBuzz")

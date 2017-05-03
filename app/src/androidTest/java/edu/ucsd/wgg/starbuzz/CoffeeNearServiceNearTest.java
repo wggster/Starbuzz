@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.test.InstrumentationRegistry;
@@ -83,18 +82,18 @@ public class CoffeeNearServiceNearTest {
 
         // We're far from the Governor Starbucks
         testLoc = lpMock.setLocation(32.879409,-117.2382162); // UCSD (again, for locality)
-        assertTrue("CoffeeNearService.nearStore reported near at UCSD", !service.nearStore(testLoc));
+        assertTrue("CoffeeNearService.nearStore reported near at UCSD", !service.nearStore(testLoc, CoffeeNearService.MIN_DISTANCE));
 
         // We're far from the Governor Starbucks
         testLoc = lpMock.setLocation(32.8417407,-117.2289234); // Home
-        assertTrue("CoffeeNearService.nearStore reported near at Home", !service.nearStore(testLoc));
+        assertTrue("CoffeeNearService.nearStore reported near at Home", !service.nearStore(testLoc, CoffeeNearService.MIN_DISTANCE));
 
         // We're close to the Governor Starbucks
         testLoc = lpMock.setLocation(32.8514615,-117.2159587); // Should be close
-        assertTrue("CoffeeNearService.nearStore reported far at Standley Rec", service.nearStore(testLoc));
+        assertTrue("CoffeeNearService.nearStore reported far at Standley Rec", service.nearStore(testLoc, CoffeeNearService.MIN_DISTANCE));
 
         // We're at the Governor Starbucks
-        testLoc = lpMock.setLocation(CoffeeNearService.STARBUZZ_LATITUDE,CoffeeNearService.STARBUZZ_LONGITUDE); // Starbucks
-        assertTrue("CoffeeNearService.nearStore reported near at Starbucks", service.nearStore(testLoc));
+        testLoc = lpMock.setLocation(StarbuzzLocations.STARBUZZ_LATITUDE,StarbuzzLocations.STARBUZZ_LONGITUDE); // Starbucks
+        assertTrue("CoffeeNearService.nearStore reported near at Starbucks", service.nearStore(testLoc, CoffeeNearService.MIN_DISTANCE));
     }
 }

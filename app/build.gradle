@@ -3,11 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
-
     defaultConfig {
         applicationId "edu.ucsd.wgg.starbuzz"
         // https://developer.android.com/studio/build/multidex.html
-        minSdkVersion 21 /* WGG - raised this because of Dex problems */
+        minSdkVersion 23 /* WGG - raised this because of Dex problems */
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -26,19 +25,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-
     /*
-     * WGG: Required for instrumented tests
-     * see https://developer.android.com/studio/test/index.html
-     * and https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests.html
-     */
-
-    androidTestCompile 'com.android.support:support-annotations:24.2.0' // upgraded 24.0.0 to 24.2.0
+         * WGG: Required for instrumented tests
+         * see https://developer.android.com/studio/test/index.html
+         * and https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests.html
+         */
+    androidTestCompile 'com.android.support:support-annotations:24.2.0'
+    // upgraded 24.0.0 to 24.2.0
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     compile 'com.android.support:appcompat-v7:24.2.0'

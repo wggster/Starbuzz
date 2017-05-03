@@ -33,18 +33,16 @@ import android.os.IBinder;
 public class CoffeeNearService extends Service {
 
     // From the Google Maps web interface, the lat/lon at the end
-    public static final double STARBUZZ_LATITUDE = 32.8516218;
-    public static final double STARBUZZ_LONGITUDE = -117.2157016;
 
     private final IBinder binder = new CNSBinder();
 
     private Location lastLocation;
-    private Location starBuzzLocation;
+    private StarbuzzLocations starbuzzLocations;
     private LocationListener buzzListener;
     private LocationManager locManager;
-    private final int MIN_DISTANCE = 500; // meters
+    static final int MIN_DISTANCE = 500; // meters
 
-    public class CNSBinder extends Binder {
+      public class CNSBinder extends Binder {
         CoffeeNearService getCoffeeNear() { return CoffeeNearService.this; }
     }
 
@@ -56,9 +54,7 @@ public class CoffeeNearService extends Service {
     @Override
     public void onCreate() {
 
-        starBuzzLocation = new Location(""); // empty provider, go figure
-        starBuzzLocation.setLatitude(STARBUZZ_LATITUDE); // Starbucks on Governor
-        starBuzzLocation.setLongitude(STARBUZZ_LONGITUDE); // via Google Maps search
+        starbuzzLocations = new StarbuzzLocations();
 
         LocationListener buzzListener = new LocationListener() {
             Location lastListenerLocation; // track the last location signalled from this Listener
@@ -67,7 +63,7 @@ public class CoffeeNearService extends Service {
                 // Avoids repeated notifications while within the "near" zone
                 // TODO: susceptible to toggling is near the boundary and have GPS drift;
                 // TODO: would want to add a timer or something
-                if (!nearStore(lastListenerLocation) && nearStore(newListenerLocation)) {
+                if (!starbuzzLocations.nearStore(lastListenerLocation, MIN_DISTANCE) && starbuzzLocations.nearStore(newListenerLocation, MIN_DISTANCE)) {
                     showMessage("You are near StarBuzz!");
                 }
                 lastListenerLocation = lastLocation = newListenerLocation;
@@ -83,13 +79,6 @@ public class CoffeeNearService extends Service {
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_DISTANCE, 1, buzzListener);
     }
 
-    /*
-     * This method was exposed partially for reasons of Testing and DbC.
-     * Now I can test the "near" calculation without depending on callbacks and Notifications.
-     */
-    public boolean nearStore(Location location) {
-        return (location != null) && (location.distanceTo(starBuzzLocation) <= MIN_DISTANCE);
-    }
 
     @Override
     public void onDestroy() {
@@ -122,9 +111,13 @@ public class CoffeeNearService extends Service {
         }
     }
 
+    public boolean nearStore(Location location, int minDistance) {
+        return starbuzzLocations.nearStore(location,minDistance);
+    }
+
     // PRE: hasLocation()
-    public double getMiles() {
-        return getLastLocation().distanceTo(starBuzzLocation) / 1609.344; // meters -> miles
+    public double getMiles(Location location) {
+        return starbuzzLocations.getMiles(location);
     }
 
     /*
