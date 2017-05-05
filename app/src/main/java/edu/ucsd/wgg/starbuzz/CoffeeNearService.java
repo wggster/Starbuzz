@@ -111,8 +111,8 @@ public class CoffeeNearService extends Service {
         }
     }
 
-    public boolean nearStore(Location location, int minDistance) {
-        return starbuzzLocations.nearStore(location,minDistance);
+    public boolean nearStore(Location location) {
+        return starbuzzLocations.nearStore(location, MIN_DISTANCE);
     }
 
     // PRE: hasLocation()
