@@ -40,7 +40,7 @@ public class CoffeeNearService extends Service {
     private StarbuzzLocations starbuzzLocations;
     private LocationListener buzzListener;
     private LocationManager locManager;
-    static final int MIN_DISTANCE = 500; // meters
+    private static final int MIN_DISTANCE = 500; // meters
 
       public class CNSBinder extends Binder {
         CoffeeNearService getCoffeeNear() { return CoffeeNearService.this; }
